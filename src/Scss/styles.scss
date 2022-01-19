@@ -2,15 +2,24 @@
   margin: 0;
   padding: 0;
 }
-
-body {
-  background-color:#fff;
+:root {
+  --select-border: #777;
+  --select-focus: rgb(177, 131, 15);
+  --select-arrow: var(--select-border);
 }
 
+body {
+  background: rgb(195,136,34);
+  background: radial-gradient(circle, rgba(195,136,34,0.6811099439775911) 27%, rgba(253,226,45,0.7987570028011204) 79%);
+}
 h1 {
+  color:rgb(220, 98, 6);
   font-family: "Lato", sans-serif;
   margin-top: 50px;
   text-align: center;
+  @media only screen and (max-width: 752px) {
+    margin-top:30px;
+    }
 }
 
 .input_wrapper {
@@ -19,12 +28,12 @@ h1 {
 }
 
 .zone {
-  margin-top: 50px;
+  border-radius: 12px;
   font-family: "lato", sans-serif;
   font-size: 18px;
+  margin-top: 50px;
   padding: 8px 10px;
   text-align: center;
-  border-radius: 12px;
 }
 
 .clock {
@@ -33,12 +42,16 @@ h1 {
   cursor: pointer;
   height: 38vh;
   left: 50%;
+  margin-top:2em;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
   transition: 0.1s ease;
   width: 38vh;
-
+  @media only screen and (max-width: 752px) {
+    margin-top:100px;
+  
+   }
 
 }
 
@@ -109,6 +122,9 @@ h1 {
   padding: 4px;
   position: absolute;
   transform: translateX(-50%);
+  @media only screen and (max-width: 752px) {
+    font-size: 0.9rem;
+   }
 
 }
 
@@ -162,13 +178,55 @@ h1 {
 }
 
 .cityValue {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  text-align: center;
-  font-size: 36px;
+  color: rgb(220, 98, 6);
   font-family: "Lato", sans-serif;
-  color: goldenrod;
+  font-size: 36px;
+  margin-bottom:100px;
+  margin-top: 100px;
   position: relative;
-  top: 65vh;
+  text-align: center;
+  top: 55vh;
+  @media only screen and (max-width: 752px) {
+   top:60vh;
+   }
+   
+}
 
+.input_wrapper select {
+  width: 100%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: none;
+  background-image: radial-gradient(circle, rgba(195, 136, 34, 0.686) 27%, rgba(195,136,34,0.6811099439775911) 79%);
+
+  
+  @media only screen and (max-width: 752px) {
+  
+     padding: 0.10em 0.1em;
+     font-size: 1.5rem;
+    }
+}
+
+.input_wrapper{
+  box-sizing:border-box;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+}
+.zone {
+  font-size: 1.5rem;
+  color:rgb(220, 98, 6);
 }
