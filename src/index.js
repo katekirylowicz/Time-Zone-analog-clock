@@ -1,35 +1,63 @@
 
 import "./Scss/styles.scss";
 
+const ZoneOffsetValue = {
+    Chicago: -6,
+    Dubaj: 3,
+    Istambuł: 2,
+    Kair: 1,
+    London: -1,
+    Meksyk: -9,
+    Moskwa: 2,
+    NowyJork: -6,
+    Paryż: 0,
+    Pekin: 7,
+    SaoPaulo: -4,
+    Seul: 8,
+    Singapur: 7,
+    Sydney: 10,
+    TelAviv: 1,
+    Tokyo: 8,
+    Toronto: -6,
+    Warszawa: 0,
+    Waszyngton: -6,
+};
+//the offset value is reduced by 1 h - Date.now() taken time from the locally computer in Warsaw, not greenwich area 
+let timeZoneSelected = "Warszawa";
+let offsetValue = 0;
 let hand_seconds = document.querySelector('.hand_seconds');
 let hand_minutes = document.querySelector('.hand_minutes');
 let hand_hours = document.querySelector('.hand_hours ');
-const yourCity = document.querySelector('.choseCity');
 
+const selectCity = document.querySelector('#TimeZone');
+const cityV = document.querySelector('.cityValue');
 
-let timeZone;
-const selectCity = document.querySelector('select');
-selectCity.addEventListener("onChange", changeCity);
 
 function changeCity() {
+    console.log(selectCity.value);
+    timeZoneSelected = selectCity.value;
+    cityV.innerHTML = timeZoneSelected;
 
-    document.querySelector('.choseCity').innerHTML = selectCity.value
-    timeZone = selectCity.value;
-    console.log(timeZone);
-
-    return timeZone;
+    if (ZoneOffsetValue.hasOwnProperty(timeZoneSelected)) {
+        offsetValue = ZoneOffsetValue[timeZoneSelected];
+    }
 };
 
-yourCity.innerHTML = selectCity.value;
+cityV.innerHTML = timeZoneSelected;
 
+console.log(offsetValue);
 
 
 function clockRotating() {
-    var data = new Date();
-    var indexSeconds = data.getSeconds();
-    var indexMinutes = data.getMinutes() + indexSeconds / 60;
-    var indexHours = (data.getHours() < 12 ? data.getHours() : (data.getHours() - 12)) + indexMinutes / 60;
-    console.log(indexHours, indexMinutes, indexSeconds);
+    const now = Date.now();
+    const offsetNow = now + offsetValue * 3600 * 1000;
+    let data = new Date(offsetNow);
+
+    let indexSeconds = data.getSeconds();
+    let indexMinutes = data.getMinutes() + indexSeconds / 60;
+    let indexHours = (data.getHours() < 12 ? data.getHours() : (data.getHours() - 12)) + indexMinutes / 60;
+    // console.log(indexHours, indexMinutes, indexSeconds);
+
 
     hand_seconds.style.transform = (`rotate(${indexSeconds * 6}deg)`);
     hand_minutes.style.transform = (`rotate(${indexMinutes * 6}deg)`);
@@ -39,27 +67,18 @@ function clockRotating() {
 }
 
 const clock = () => {
-    let time = new Date();
+    const now = Date.now();
+    const offsetNow = now + offsetValue * 3600 * 1000;
+    let time = new Date(offsetNow);
     let seconds = time.getSeconds() < 10 ? "0" + time.getSeconds() : time.getSeconds();
     let minutes = time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes();
     let hours = time.getHours() < 10 ? "0" + time.getHours() : time.getHours();
 
     document.querySelector('.current-time').innerHTML = (`${hours}:${minutes}:${seconds}`);
-}
-
-//function clockLocale() {
-//let smallClock = moment().format('LTS');
-
-//  console.log(smallClock);
-//}
-//clockLocale();
-
-//function clockRotatingLocale() {
+};
 
 
-//}
-
-
+selectCity.addEventListener("change", changeCity);
 
 clockRotating();
 clock();
