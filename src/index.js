@@ -1,6 +1,33 @@
 
 import "./Scss/styles.scss";
 
+//google time Zone API start
+const url = 'https://maps.googleapis.com/maps/api/timezone/json';
+const language = '?language=pl';
+const location = '&location=52.2326063,20.7810167';//it's correct coords?
+const stamp = `&timestamp=${Date.now()}`;// it is nesesery?? 
+const APIkey = '&key=AIzaSyB1IBnRy59b5sp1_PZvgiS2PqlqtWQy8E4';
+
+
+console.log(`${url}${language}${location}${stamp}${APIkey}`)
+fetch(`${url}${language}${location}${stamp}${APIkey}`)
+    .then(res => {
+        console.log(res);
+        if (res.ok) {
+            return res.json()
+        } else {
+            return Promise.reject(`Http error: ${res.status}`);
+
+        }
+    })
+    .then(res => {
+        console.log(res)
+    })
+    .catch(error => {
+        console.error(error)
+    });
+//API request end
+
 const ZoneOffsetValue = {
     Chicago: -6,
     Dubaj: 3,
